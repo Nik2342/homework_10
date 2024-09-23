@@ -17,3 +17,8 @@ def mask_account_card(user_str: str) -> str:
     else:
         result = get_mask_account(int(digits))
     return f"{word} {result}"
+
+
+def get_date(user_date: str) -> str:
+    result = user_date.replace("-", "")
+    return f"{result[6:8]}.{result[4:6]}.{result[0:4]}"
