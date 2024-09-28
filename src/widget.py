@@ -7,7 +7,7 @@ def mask_account_card(user_str: str) -> str:
     digits = ""
     result = ""
     for el in user_str:
-        if el.isalpha():
+        if el.isalpha() or el == " ":
             word += el
         if el.isdigit():
             digits += el
@@ -17,7 +17,7 @@ def mask_account_card(user_str: str) -> str:
         result = get_mask_card_number(int(digits))
     else:
         result = get_mask_account(int(digits))
-    return f"{word} {result}"
+    return f"{word}{result}"
 
 
 def get_date(user_date: str) -> str:
