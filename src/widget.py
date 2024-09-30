@@ -13,7 +13,7 @@ def mask_account_card(user_str: str) -> str:
             digits += el
         else:
             continue
-    if word != "Счет":
+    if word != "Счет ":
         result = get_mask_card_number(int(digits))
     else:
         result = get_mask_account(int(digits))
