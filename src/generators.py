@@ -9,8 +9,9 @@ def filter_by_currency(list_dict: list, currency: str) -> Iterator:
 
 def transaction_descriptions(list_dict: list) -> Iterator:
     """Функция описания операции"""
-    for el in list_dict:
-        yield el.get("description")
+    if list_dict != []:
+        for el in list_dict:
+            yield el.get("description")
 
 
 def card_number_generator(first: int, last: int) -> Iterator:
