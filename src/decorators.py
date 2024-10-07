@@ -1,5 +1,4 @@
 from functools import wraps
-from time import time
 from typing import Any, Callable, Optional
 
 
@@ -9,31 +8,37 @@ def log(filename: Optional[str] = None) -> Callable:
     def wrapper(func: Callable) -> Callable:
         @wraps(func)
         def inner(*args: Any, **kwargs: Any) -> Any:
-            try:
-                time_1 = time()
-                func(*args, **kwargs)
-                time_2 = time()
-            except Exception as e:
-                if filename is None:
+            result = None
+            if filename is not None:
+                try:
+                    with open(filename, "a", encoding="utf-8") as file:
+                        file.write("Начало работы функции")
+                    result = func(*args, **kwargs)
+                    file.write("Конец работы функции")
+                except Exception as e:
+                    with open(filename, "a", encoding="utf-8") as file:
+                        file.write(f"{func.__name__} error: {e}. Input: {args} {kwargs}")
+                else:
+                    file.write(f"{func.__name__} ok")
+                finally:
+                    return result
+            else:
+                try:
+                    print("Начало работы функции")
+                    result = func(*args, **kwargs)
+                    print("Конец работы функции")
+                except Exception as e:
                     print(f"{func.__name__} error: {e}. Input: {args} {kwargs}")
                 else:
-                    with open(filename, "w") as file:
-                        file.write(f"{func.__name__} error: {e}. Input: {args} {kwargs}")
-            else:
-                if filename is None:
-                    print(f"{func.__name__} ok. Начало работы:{time_1}. Конец работы:{time_2}.")
-                else:
-                    with open(filename, "w") as file:
-                        file.write(f"{func.__name__} ok. Начало работы:{time_1}. Конец работы:{time_2}.")
+                    print(f"{func.__name__} ok")
+                finally:
+                    return result
 
         return inner
 
     return wrapper
 
 
-@log()
+@log(filename="log.txt")
 def my_function(x: int, y: int) -> int:
     return x + y
-
-
-my_function(1, 2)
