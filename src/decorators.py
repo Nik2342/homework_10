@@ -11,27 +11,23 @@ def log(filename: Optional[str] = None) -> Callable:
             result = None
             if filename is not None:
                 try:
-                    with open(filename, "a", encoding="utf-8") as file:
-                        file.write("Начало работы функции")
                     result = func(*args, **kwargs)
-                    file.write("Конец работы функции")
                 except Exception as e:
-                    with open(filename, "a", encoding="utf-8") as file:
+                    with open("log.txt", "a", encoding="utf-8") as file:
                         file.write(f"{func.__name__} error: {e}. Input: {args} {kwargs}")
+                    raise e
                 else:
-                    file.write(f"{func.__name__} ok")
-                finally:
+                    with open("log.txt", "a", encoding="utf-8") as file:
+                        file.write(f"{func.__name__} ok")
                     return result
             else:
                 try:
-                    print("Начало работы функции")
                     result = func(*args, **kwargs)
-                    print("Конец работы функции")
                 except Exception as e:
                     print(f"{func.__name__} error: {e}. Input: {args} {kwargs}")
+                    raise e
                 else:
                     print(f"{func.__name__} ok")
-                finally:
                     return result
 
         return inner
@@ -40,5 +36,8 @@ def log(filename: Optional[str] = None) -> Callable:
 
 
 @log(filename="log.txt")
-def my_function(x: int, y: int) -> int:
+def my_function_2(x: int, y: int) -> int:
     return x + y
+
+
+my_function_2(2, 2)
