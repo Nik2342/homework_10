@@ -2,7 +2,7 @@ from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account_card(user_str: str) -> str:
-    """ " Функция маскировки данных пользователя"""
+    """Функция маскировки данных пользователя"""
     word = ""
     digits = ""
     result = ""
@@ -21,6 +21,6 @@ def mask_account_card(user_str: str) -> str:
 
 
 def get_date(user_date: str) -> str:
-    """ "Функция обработки времени"""
+    """Функция обработки времени"""
     result = user_date.replace("-", "")
     return f"{result[6:8]}.{result[4:6]}.{result[0:4]}"
