@@ -22,8 +22,10 @@ def get_transaction_amount(transaction_list: list, transaction_id: int) -> float
 def currency_conversion(cur_from: str, cur_to: str, amount: int) -> float:
     try:
         url = f"https://api.apilayer.com/exchangerates_data/convert?to={cur_to}&from={cur_from}&amount={amount}"
-        response = requests.request("GET", url, headers=headers)
+        response = requests.get(url, headers=headers)
         return response.json()["result"]
-    except Exception as e:
+    except Exception:
         print("Ошибка конвертации валюты")
-        raise e
+
+
+print(currency_conversion("USD", "RUB", 20))

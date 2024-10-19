@@ -8,7 +8,7 @@ def get_fin_operation(path: Optional[str] = None) -> list:
     try:
         with open(path, "r", encoding="utf-8") as file:
             fin_operation = json.load(file)
-    except Exception as e:
+    except Exception:
         print("Cодержит не список или не найден")
     finally:
         return fin_operation
