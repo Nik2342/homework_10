@@ -8,14 +8,11 @@ API_KEY = os.getenv("API_KEY")
 headers = {"apikey": API_KEY}
 
 
-def get_transaction_amount(transaction_list: list, transaction_id: int) -> float:
-    amount = 0.0
-    for transaction in transaction_list:
-        if transaction.get("id") == transaction_id:
-            currency = transaction.get("operationAmount").get("currency").get("code")
-            amount = transaction.get("operationAmount").get("amount")
-            if currency != "RUB":
-                amount = currency_conversion(currency, "RUB", amount)
+def get_transaction_amount(transaction: dict) -> float:
+    currency = transaction.get("operationAmount").get("currency").get("code")
+    amount = transaction.get("operationAmount").get("amount")
+    if currency != "RUB":
+        amount = currency_conversion(currency, "RUB", amount)
     return amount
 
 
@@ -26,6 +23,3 @@ def currency_conversion(cur_from: str, cur_to: str, amount: int) -> float:
         return response.json()["result"]
     except Exception:
         print("Ошибка конвертации валюты")
-
-
-print(currency_conversion("USD", "RUB", 20))
