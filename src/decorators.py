@@ -13,11 +13,11 @@ def log(filename: Optional[str] = None) -> Callable:
                 try:
                     result = func(*args, **kwargs)
                 except Exception as e:
-                    with open("log.txt", "a", encoding="utf-8") as file:
+                    with open(filename, "a", encoding="utf-8") as file:
                         file.write(f"{func.__name__} error: {e}. Input: {args} {kwargs}")
                     raise e
                 else:
-                    with open("log.txt", "a", encoding="utf-8") as file:
+                    with open(filename, "a", encoding="utf-8") as file:
                         file.write(f"{func.__name__} ok")
                     return result
             else:
