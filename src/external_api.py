@@ -13,7 +13,7 @@ def get_transaction_amount(transaction: dict) -> float:
     amount = transaction.get("operationAmount").get("amount")
     if currency != "RUB":
         amount = currency_conversion(currency, "RUB", amount)
-    return amount
+    return round(float(amount), 2)
 
 
 def currency_conversion(cur_from: str, cur_to: str, amount: int) -> float:
