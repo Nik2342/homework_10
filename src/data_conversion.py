@@ -11,6 +11,8 @@ def csv_data_conversion(path):
             reader = csv.DictReader(file)
             for row in reader:
                 csv_list.append(row)
+    except FileNotFoundError:
+        print("Файл не найден")
     except Exception as ex:
         print(ex)
     finally:
@@ -23,10 +25,9 @@ def xlsx_data_conversion(path):
     try:
         data = pd.read_excel(path)
         xlsx_list = data.to_dict(orient="records")
+    except FileNotFoundError:
+        print("Файл не найден")
     except Exception as ex:
         print(ex)
     finally:
         return xlsx_list
-
-
-# print(xlsx_data_conversion("C:\\Users\\NikitaS\\PycharmProjects\\Homework9_1\\data\\transactions_excel.xlsx"))
