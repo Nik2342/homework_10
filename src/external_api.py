@@ -9,6 +9,7 @@ headers = {"apikey": API_KEY}
 
 
 def get_transaction_amount(transaction: dict) -> float:
+    """Функция возвращающая сумму операции"""
     currency = transaction.get("operationAmount").get("currency").get("code")
     amount = transaction.get("operationAmount").get("amount")
     if currency != "RUB":
@@ -17,6 +18,7 @@ def get_transaction_amount(transaction: dict) -> float:
 
 
 def currency_conversion(cur_from: str, cur_to: str, amount: int) -> float:
+    """Функция перевода валюты по текущему курсу"""
     try:
         url = f"https://api.apilayer.com/exchangerates_data/convert?to={cur_to}&from={cur_from}&amount={amount}"
         response = requests.get(url, headers=headers)
