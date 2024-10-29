@@ -34,13 +34,11 @@ def main():
             print("Введены некорректные данные")
     dict_for_user_choice = {1: "JSON-файл", 2: "CSV-файл", 3: "XLSX-файл"}
     if user_choice == 1:
-        user_data = get_fin_operation("C:\\Users\\NikitaS\\PycharmProjects\\Homework9_1\\data\\operations.json")
+        user_data = get_fin_operation("data/operations.json")
     elif user_choice == 2:
-        user_data = csv_data_conversion("C:\\Users\\NikitaS\\PycharmProjects\\Homework9_1\\data\\transactions.csv")
+        user_data = csv_data_conversion("data/transactions.csv")
     elif user_choice == 3:
-        user_data = xlsx_data_conversion(
-            "C:\\Users\\NikitaS\\PycharmProjects\\Homework9_1\\data\\transactions_excel.xlsx"
-        )
+        user_data = xlsx_data_conversion("data/transactions_excel.xlsx")
     print(f"Для обработки выбран {dict_for_user_choice[user_choice]}")
 
     # Выбор статуса операции пользователем
