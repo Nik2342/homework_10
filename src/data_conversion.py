@@ -7,8 +7,8 @@ def csv_data_conversion(path):
     """Функция считывания csv-файлов"""
     csv_list = []
     try:
-        with open(path) as file:
-            reader = csv.DictReader(file)
+        with open(path, encoding="utf-8") as file:
+            reader = csv.DictReader(file, delimiter=";")
             for row in reader:
                 csv_list.append(row)
     except FileNotFoundError:
@@ -25,6 +25,7 @@ def xlsx_data_conversion(path):
     try:
         data = pd.read_excel(path)
         xlsx_list = data.to_dict(orient="records")
+        xlsx_list = [row for row in xlsx_list if not any(pd.isna(value) for value in row.values())]
     except FileNotFoundError:
         print("Файл не найден")
     except Exception as ex:

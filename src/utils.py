@@ -38,6 +38,3 @@ def get_fin_operation(path: Optional[str] = None) -> list:
         print("Cодержит не список или не найден")
     finally:
         return fin_operation
-
-
-print(get_fin_operation("C:\\Users\\NikitaS\\PycharmProjects\\Homework9_1\\data\\operations.json"))
