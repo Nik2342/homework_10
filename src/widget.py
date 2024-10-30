@@ -6,6 +6,8 @@ def mask_account_card(user_str: str) -> str:
     word = ""
     digits = ""
     result = ""
+    if (user_str) == "":
+        return ""
     for el in user_str:
         if el.isalpha() or el == " ":
             word += el
@@ -22,5 +24,7 @@ def mask_account_card(user_str: str) -> str:
 
 def get_date(user_date: str) -> str:
     """Функция обработки времени"""
+    if (user_date) == "":
+        return ""
     result = user_date.replace("-", "")
     return f"{result[6:8]}.{result[4:6]}.{result[0:4]}"

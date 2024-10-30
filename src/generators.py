@@ -1,10 +1,14 @@
 from typing import Iterator
 
 
-def filter_by_currency(list_dict: list, currency: str) -> Iterator:
+def filter_by_currency(list_dict: list, currency: str):
     """Функция фильтрации операций по валюте"""
-    result = filter(lambda x: x.get("operationAmount").get("currency").get("name") == currency, list_dict)
-    return result
+    for transaction in list_dict:
+        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == currency:
+            yield transaction
+    for transaction in list_dict:
+        if transaction.get("currency_code", {}) == currency:
+            yield transaction
 
 
 def transaction_descriptions(list_dict: list) -> Iterator:
